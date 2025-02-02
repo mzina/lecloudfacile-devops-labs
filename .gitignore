@@ -13,3 +13,5 @@ vagrant-ansible/ubuntu-bionic-18.04-cloudimg-console.log
 *.tfvars
 *.DS_Store$
 *-lock.json
+flask-app/.DS_Store
+.DS_Store

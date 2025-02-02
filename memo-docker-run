@@ -1,0 +1,33 @@
+docker run -d --name medridha-mysql\
+  --network mysql-network\
+  -e MYSQL_ROOT_PASSWORD=root\
+  -e MYSQL_DATABASE=lecloudfacile\
+  -e MYSQL_USER=lecloudfacile\
+  -e MYSQL_PASSWORD=password\
+  -v ./sql-dummy-data:/docker-entrypoint-initdb.d\
+  -v mysql-data:/var/lib/mysql\
+  mysql:9
+
+  docker run -d --name medridha-phpmyadmin\
+  -e PMA_HOST=medridha-mysql\
+  -p 8086:80\
+  phpmyadmin:5.2.1
+
+  docker network connect mysql-network medridha-phpmyadmin
+
+
+  docker run -d --name medridha-postgres\
+  --network pg-network\
+  -e POSTGRES_USER=lecloudfacile\
+  -e POSTGRES_DB=moodboard\
+  -e POSTGRES_PASSWORD=password\
+  -v pg-data:/var/lib/postgresql/data\
+  postgres:16.4
+
+
+  docker run -d --name medridha-pgadmin\
+  --network pg-network\
+  -p 8087:80\
+  -e PGADMIN_DEFAULT_EMAIL=medridha.zina@gmail.com\
+  -e PGADMIN_DEFAULT_PASSWORD=password\
+  dpage/pgadmin4
